@@ -19,7 +19,9 @@ public class Main {
 
 
         // build the parking lot with 10 car slots and 5 bike slots
-        ParkingLot parkingLot = new ParkingLot(10, 5);
+        ParkingLot parkingLot = ParkingLot.getInstance(10, 5);
+        ParkingLot parkingLot1 = ParkingLot.getInstance(10, 25);
+        System.out.println(parkingLot1 == parkingLot); // true, both references point to the same instance
         //park the car and bike
         parkingLot.parkVehicle(car);
         parkingLot.parkVehicle(bike);

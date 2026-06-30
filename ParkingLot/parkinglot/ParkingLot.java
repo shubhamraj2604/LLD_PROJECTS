@@ -2,8 +2,20 @@ package parkinglot;
 import java.util.*;
 import vehcile.*;
 import payment.*;
+import parkingticket.*;
 public class ParkingLot {
+
+    private static ParkingLot instance;
+     // singleton pattern to ensure only one instance of ParkingLot exists
+     // synchronized method to make it thread-safe
+    public static synchronized ParkingLot getInstance(int carSlots, int bikeSlots) {
+        if (instance == null) {
+            instance = new ParkingLot(carSlots, bikeSlots);
+        }
+        return instance;
+    }
     private List<ParkingSlot> parkingSpots  = new ArrayList<>();
+    private HashMap<Integer, ParkingTicket> parkingTickets = new HashMap<>();
     private int totalSlots , carSlots , bikeSlots;
     public ParkingLot(int carSlots , int bikeSlots) {
         this.carSlots = carSlots;
@@ -65,7 +77,7 @@ public class ParkingLot {
         if(vechileSpot != null){
             //payment
             PaymentMethod payment = new PaymentFactory().getPaymentMethod(paymentMethod);
-            payment.processPayment(100); // Assuming a fixed amount for simplicity
+            // payment.processPayment(100); // Assuming a fixed amount for simplicity   
             vechileSpot.vacate();
             System.out.println("Vehicle is exiting the parking lot");
             System.out.println("Thank you, Visit again");
