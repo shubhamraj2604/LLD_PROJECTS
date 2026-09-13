@@ -8,6 +8,7 @@ public class ParkingLot {
     private static ParkingLot instance;
      // singleton pattern to ensure only one instance of ParkingLot exists
      // synchronized method to make it thread-safe
+     // synchronized ensures that only one thread can access the method at a time, preventing multiple instances from being created in a multi-threaded environment.
     public static synchronized ParkingLot getInstance(int carSlots, int bikeSlots) {
         if (instance == null) {
             instance = new ParkingLot(carSlots, bikeSlots);
@@ -73,7 +74,6 @@ public class ParkingLot {
 
     public void vacateSpot(Vechile vechile , String paymentMethod){
         ParkingSlot vechileSpot = findVechileSpot(vechile);
-
         if(vechileSpot != null){
             //payment
             PaymentMethod payment = new PaymentFactory().getPaymentMethod(paymentMethod);
@@ -81,7 +81,9 @@ public class ParkingLot {
             vechileSpot.vacate();
             System.out.println("Vehicle is exiting the parking lot");
             System.out.println("Thank you, Visit again");
-        }else{
+        }
+        else
+        {
             System.out.println("This vehicle is not parked in the parking lot");
         }
     }
